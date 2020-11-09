@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.weather.dao.RoleDAO">
+	<!--  이메일 아이디로 조회 하기 -->
+	<select id="selectById" parameterType="string" resultType="RoleVO">
+		select * from cust_role where cemail=#{cemail}
+	</select>
+	<!-- 권한 리스트 구하기 -->
+	<select id="selectByRoleList" resultType="RoleVO">
+		select * from cust_role
+	</select>
+	
+<!-- !!!!!!!!!!!!!!!!!!권한 관련 맵퍼!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
+	<select id="selectRole" parameterType="string" resultType="RoleVO">
+		select * from cust_role where cemail=#{cemail}
+	</select>
+	<!-- 회원 등록시 권한 부여 -->
+	<insert id="insertRole" parameterType="RoleVO">
+		insert into cust_role 
+			(cemail, role) 
+		values 
+			(#{cemail}, #{role})		
+	</insert>
+	<!-- 권한 수정 -->
+	<update id="updateRole" parameterType="RoleVO">
+		update cust_role 
+		set
+			cemail=#{cemail},role=#{role}
+		where
+			cemail=#{cemail}
+	</update>
+	<!--  권한 삭제 -->
+	<delete id="delRole" parameterType="string">
+		delete from cust_role where cemail=#{cemail}
+	</delete>	
+	
+	<!--  하다가 망한 것 -->
+	<!-- !!!!!!!!!!!!!!!!!!권한 관련 맵퍼!!!!!!!!!!!!!!!!!!!!!!!!!!!  -->
+	<!-- <select id="selectRole" parameterType="string" resultType="RoleVO">
+		select * from cust_role where cemail=#{cemail}
+	</select> -->
+	<!-- 회원 등록시 권한 부여 -->
+	<!-- <insert id="insertAuth" parameterType="RoleVO">
+		INSERT INTO cust_role 
+			(cemail, ROLE) 
+		VALUES 
+			(#{cemail},#{role});		
+	</insert> -->
+	<!-- 회원 등록 및 권한 동시 부여 및 새로운 테이블에 저장 -->
+	<!-- <insert id="insertAll" parameterType="ManageVO">
+		INSERT ALL 
+			INTO CUSTOMER VALUES 
+				(cust_idx_seq.nextval,#{cemail},#{cpassword},#{cname},#{cnickname},#{cbirth},#{cgender},#{cphone},#{czipcode},#{caddress},#{caddress2},#{enabled})
+			INTO CUST_ROLE VALUES 
+				(#{cemail},#{ROLE})
+		SELECT 
+			custno,cemail,cpassword,cname,cnickname,cbirth,cgender,cphone,czipcode,caddress,caddress2,enabled,ROLE
+		FROM manage
+	</insert> -->
+	
+</mapper>

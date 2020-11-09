@@ -1,0 +1,26 @@
+/* Add here all your css styles (customizations) */
+/*-----------------------------------
+   	Font Import From Google Fonts
+  -----------------------------------*/
+/*@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");*/
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,300,500);
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+
+
+/*=============================================
+                font : JiYeon
+===============================================*/
+
+.korean-font-bold {
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: bold;
+}
+
+.korean-font {
+    font-family: initial !important;
+    font-style: normal;
+    font-weight: normal !important;
+}

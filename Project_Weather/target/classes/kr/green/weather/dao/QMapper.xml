@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.weather.dao.QDAO">
+	<!--  마지막 등록 번호 조회 -->
+	<select id="maxNum" resultType="int">
+		select max(num) from question
+	</select>
+	<!--  이름으로 조회 하기 -->
+	<select id="selectByname" parameterType="string" resultType="QVO">
+		select * from question where name=#{name}
+	</select>
+	<!--  모든 글 가져오기 -->
+	<select id="selectByQList" resultType="QVO">
+		select * from question order by num desc
+	</select>
+	
+	<!-- 회원 등록시 권한 부여 -->
+	<insert id="insertQ" parameterType="QVO">
+		insert into question 
+			(num, content, name, password, now) 
+		values 
+			(ques_idx.nextval, #{content}, #{name}, #{password}, #{now})		
+	</insert>
+	<!-- 권한 수정 -->
+	<update id="updateQ" parameterType="QVO">
+		update question 
+		set
+			num=#{num},content=#{content},name=#{name}, password=#{password},now=#{now}
+		where
+			name=#{name}
+	</update>
+	<!--  권한 삭제 -->
+	<delete id="delQ" parameterType="string">
+		delete from question where name=#{name}
+	</delete>	
+	
+	
+</mapper>

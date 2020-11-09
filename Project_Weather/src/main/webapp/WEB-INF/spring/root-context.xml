@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- MessageConverter 등록 -->
+	<bean id="xmlMessageConverter"
+		class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter" />
+	<bean id="jsonMessageConverter"
+		class="org.springframework.http.converter.json.GsonHttpMessageConverter" />
+
+	
+	<!-- 등록된 컨버터를 맵핑 -->
+	<bean  class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMessageConverter"/>
+				<ref bean="xmlMessageConverter"/>
+			</list>		
+		</property>
+	</bean>	
+	<!--  프로퍼티 파일 사용 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	<!-- 트랜젝션을 transactionManager를 이용하여 어노테이션으로 하겠다. -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- DB연결 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${o.driver}"/>
+		<property name="url" value="${o.url}"/>
+		<property name="username"  value="${o.username}"/>
+		<property name="password" value="${o.password}"/>
+	</bean>
+	<!-- mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="kr.green.weather.vo"/>
+		<property name="mapperLocations" value="classpath:/kr/green/weather/dao/*.xml"/>
+	</bean>
+	<!--  이것을 등록하면 DAOIMPL을 만들지 않고 인터페이스만 만들어도 된다. -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.green.weather.dao"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" ></property>
+	</bean>
+	<!-- 트랜젝션 관리자 추가 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- Email 추가 시작 -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="jbs0206j@gmail.com" />
+		<property name="password" value="wjsqudtjs1" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- Email 추가 종료 -->
+	
+	
+	<!--  스프인 시크리트 암호화 객체 -->
+	 <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	
+	
+	<security:http auto-config="true" >
+		<security:intercept-url pattern="/"
+			access="permitAll" />
+		<security:intercept-url pattern="/home**"
+			access="permitAll" />
+		<security:intercept-url pattern="/login**"
+			access="permitAll" />
+		<security:intercept-url pattern="/insert**"
+			access="permitAll" />
+		<security:intercept-url pattern="/question**"
+			access="permitAll" />
+		<security:intercept-url pattern="/quest**"
+			access="permitAll" />
+		<security:intercept-url pattern="/custLists**"
+			access="hasRole('ROLE_MANAGER')"/>
+		<security:intercept-url pattern="/roleLists**"
+			access="hasRole('ROLE_MANAGER')"/>
+		<security:intercept-url pattern="/showWeather**" 
+			access="hasRole('ROLE_WEATHER')" />
+		<security:intercept-url pattern="/showAlarm**" 
+			access="hasRole('ROLE_WEATHER')" />
+		<!-- <security:intercept-url pattern="/showWeather**"
+			access="permitAll" />
+		<security:intercept-url pattern="/showArlam**"
+			access="permitAll" />
+		
+
+		<security:intercept-url pattern="/custDel**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/custAuth**"
+			access="permitAll" /> -->
+		
+		
+		
+		<security:form-login 
+			login-page="/login"
+			default-target-url="/weather/" 
+			username-parameter="cemail" 
+			password-parameter="cpassword"
+			authentication-success-handler-ref="loginSuccessHandler" />
+			<!-- login-processing-url="/login" -->
+			<!-- login-processing-url="/loginOk" -->
+		<!--  access denied page -->
+		<security:access-denied-handler error-page="/noAuth" />
+		<security:logout logout-success-url="/"  /><!-- /login?logout -->
+		
+		<security:csrf />
+	</security:http> 
+	<!-- 로그인 성공시 세션에 회원 정보 등록 -->
+	 <bean id="loginSuccessHandler"
+		class="kr.green.weather.service.LoginSuccessHandler">
+		<property name="successUrl" value="/weather/" />
+	</bean>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select cemail as username, cpassword as password, enabled  from customer where cemail=?"
+				authorities-by-username-query="select cemail as username, role from cust_role where cemail=?" /> 
+			<!-- 암호화해서 저장했을 경우 반드시 추가해야 한다.  -->	
+	 		<security:password-encoder ref="bcryptPasswordEncoder"/>				
+		</security:authentication-provider>
+	</security:authentication-manager> 
+	<!-- 시크리트 추가 종료 -->
+
+	
+	
+</beans>

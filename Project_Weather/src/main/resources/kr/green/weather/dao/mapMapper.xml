@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.weather.dao.MapDAO">
+	<!-- 시로 위도 경도 찾기 -->
+	<select id="selectBySi" parameterType="string" resultType="MapVO">
+		select x,y from mapdata where si=#{si}
+	</select>	
+	<!-- 구로 위도 경도 찾기 -->	
+	<select id="selectByGu" parameterType="string" resultType="MapVO">
+		select x,y from mapdata where gu=#{gu}
+	</select>	
+	<!-- 구로 위도 경도 찾기 -->	
+	<select id="selectByGuX" parameterType="string" resultType="MapVO">
+		select x from mapdata where gu=#{gu}
+	</select>	
+	<!-- 구로 위도 경도 찾기 -->	
+	<select id="selectByGuY" parameterType="string" resultType="MapVO">
+		select y from mapdata where gu=#{gu}
+	</select>	
+	<!-- 동으로 위도 경도 찾기 -->
+	<select id="selectByDong" parameterType="string" resultType="MapVO">
+		select x,y from mapdata where dong=#{dong}
+	</select>
+	<!--  시, 구 로만 찾기 -->
+	<select id="selectBySiGuX" parameterType="string" resultType="MapVO">
+		select x from mapdata where si=#{si} and gu=#{gu} and dong is null
+	</select>	
+	<!--  시, 구 로만 라이크 찾기 -->
+	<select id="selectBySiGuLikeX" parameterType="string" resultType="MapVO">
+		select x from mapdata where si like #{si} and gu=#{gu} and dong is null
+	</select>	
+	<!--  시, 구 로만 라이크 찾기 -->
+	<select id="selectBySiGuLikeY" parameterType="string" resultType="MapVO">
+		select y from mapdata where si like #{si} and gu=#{gu} and dong is null
+	</select>	
+	<!--  구, 동으로 위도 경도 찾기 -->
+	<select id="selectByGuDongX" parameterType="string" resultType="MapVO">
+		select x from mapdata where gu=#{gu} and dong=#{dong}
+	</select>	
+	<select id="selectByGuDongY" parameterType="string" resultType="MapVO">
+		select y from mapdata where gu=#{gu} and dong=#{dong}
+	</select>	
+	<!--  구, 동으로 X 찾기  -->
+	<select id="selectByDongX" parameterType="string" resultType="MapVO">
+		select x from mapdata where dong=#{dong}
+	</select>	
+	<!--  구, 동으로 Y 찾기  -->
+	<select id="selectByDongY" parameterType="string" resultType="MapVO">
+		select y from mapdata where dong=#{dong}
+	</select>	
+	
+</mapper>

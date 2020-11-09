@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.weather.dao.CustDAO">
+	<select id="selectCustList" resultType="CustVO">
+		select * from customer 
+	</select>
+	<!--  한명 조회 : 삭제때 필요 -->
+	<select id="selectByNo" parameterType="int" resultType="CustVO">
+		select * from customer where custno=#{custno}
+	</select>
+	<!--  이메일로 조회 하기 -->
+	<select id="selectByEmail" parameterType="string" resultType="CustVO">
+		select * from customer where cemail=#{cemail}
+	</select>
+	<!--  이메일 아이디로 조회 하기 -->
+	<select id="selectById" parameterType="string" resultType="CustVO">
+		select * from customer where cemail=#{cemail}
+	</select>
+	
+	<!-- 회원등록/저장 -->
+	<insert id="insert" parameterType="CustVO" >
+		insert into customer 
+			(custno,cemail,cpassword,cname,cnickname,cbirth,cgender,cphone,czipcode,caddress,caddress2,enabled)
+		values
+			(cust_idx_seq.nextval,#{cemail},#{cpassword},#{cname},#{cnickname},#{cbirth},#{cgender},#{cphone},#{czipcode},#{caddress},#{caddress2},#{enabled})
+	</insert>
+	
+	
+	<!--  변경 -->
+	<update id="update" parameterType="CustVO">
+		update customer
+		set
+			cemail=#{cemail},cpassword=#{cpassword},cname=#{cname},cnickname=#{cnickname},cbirth=#{cbirth},cgender=#{cgender},
+			cphone=#{cphone},czipcode=#{czipcode},caddress=#{caddress},caddress2=#{caddress2}
+		where
+			cemail=#{cemail}
+	</update>
+	<!--  회원 탈퇴 -->
+	<delete id="delete" parameterType="string">
+		delete from customer where cemail=#{cemail} 
+	</delete>
+	<!-- 회원번호 마지막 조회 -->
+	<select id="maxCustno" resultType="int">
+		select max(custno) from customer
+	</select>
+	<!-- 비번 수정 -->
+	<update id="changePass" parameterType="hashmap">
+		update customer set cpassword=#{cpassword} where cemail=#{cemail} 
+	</update>
+
+	
+</mapper>
