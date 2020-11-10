@@ -27,7 +27,7 @@ $(function(){
 
 	// Generate the digits with the needed markup,
 	// and add them to the clock
-
+	/////////////////////////////digital 숫자로 현재 시간 만들기
 	var digit_holder = clock.find('.digits');
 
 	$.each(positions, function(){
@@ -51,8 +51,9 @@ $(function(){
 		}
 
 	});
+	/////////////////////////////digital 숫자로 현재 시간 만들기
 
-	// Add the weekday names 요일 보이기
+	//////////////////// Add the weekday names 요일 보이기
 
 	var weekday_names = 'MON TUE WED THU FRI SAT SUN'.split(' '),
 		weekday_holder = clock.find('.weekdays');
@@ -62,8 +63,13 @@ $(function(){
 	});
 
 	var weekdays = clock.find('.weekdays span');
+	///////////////////////////////////// Add the weekday names 요일 보이기
+	
+	
+	
     // 알람을 맞추기 위한 현재 시간 설정용 변수
     var curTime;
+    var curTimeH;
     var ap;
 
 	// Run a timer every second and update the clock 매 시간 표기
@@ -76,7 +82,7 @@ $(function(){
 		// d = 요일표기 , A = AM/PM 표기
 
 		var now = moment().format("hhmmssdA");
-		var nowH = moment().format("HHmmssdA");
+		var nowH = moment().format("HHmmss");
         
 		digits.h1.attr('class', digit_to_name[now[0]]);
 		digits.h2.attr('class', digit_to_name[now[1]]);
@@ -90,6 +96,7 @@ $(function(){
 		// and make Sunday last
         // 현재시간을 합쳐서 숫자로 계산
         curTime = parseInt(now[0]+now[1]+now[2]+now[3]+now[4]+now[5]);
+        curTimeH = parseInt(nowH[0]+nowH[1]+nowH[2]+nowH[3]+nowH[4]+nowH[5]);
 		// 오전 오후 확인 A or P
 		ap = now[7];
 		console.log(ap);
@@ -105,21 +112,24 @@ $(function(){
 		// Mark the active day of the week
 		weekdays.removeClass('activeR').eq(dow).addClass('activeR');
 
-		// Set the am/pm text:
+		// Set the am/pm text: AMPM 텍스트로 뿌리기
 		ampm.text(now[7]+now[8]);
 
 		// Is there an alarm set?
         
-		if(alarm_counter > curTime){
+		//if(alarm_counter > curTime){
 			
 			// Decrement the counter with one second
 			//alarm_counter--;////////////////////////
 
 			// Activate the alarm icon
-			alarm.addClass('activeR');
-		}
-		else if(alarm_counter == curTime){
-
+			//alarm.addClass('activeR');
+		//}
+		console.log(alarm_counter);
+		console.log(curTime);
+		if(alarm_counter == curTime){
+			console.log("안에 카운터 : "+alarm_counter);
+			console.log("안에 커타임 : " + curTime);
 			time_is_up.fadeIn();
 
 			// Play the alarm sound. This will fail
@@ -181,7 +191,7 @@ $(function(){
 		var valid = true, after = 0,
 			to_seconds = [3600, 60, 1];
         var set = [];
-         var setT = "";
+        var setT = "";
 		dialog.find('.input').each(function(i){
 
 			// Using the validity property in HTML5-enabled browsers:
@@ -200,10 +210,9 @@ $(function(){
             // 알람 설정 값 가져와서 INT로 만들기
             set.push(this.value);
             for(var i = 0; i<set.length;i++){
-                
                 console.log(" set["+ i +"] : " + set[i]);
-                
             }
+            
             setT = parseInt(set[0] + set[1] + set[2]);
             
             console.log(" INSIDE setT : " + setT);
@@ -216,10 +225,15 @@ $(function(){
 			alert('숫자만 입력하셔야 합니다!');
 			return;
 		}
-
+		
 		if(after < curTime){
 			alert('현재 시간보다 앞선 시간을 선택해주세요!');
+			$('.input').val("");
 			return;	
+		}else if(after>=125959){
+			alert('시간 단위는 12시간 단위로 지정해주세요!');
+			after.clear();
+			return;
 		}
 
 		alarm_counter = after;

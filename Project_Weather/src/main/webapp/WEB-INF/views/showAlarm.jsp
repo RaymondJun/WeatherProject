@@ -367,7 +367,7 @@
 		<!-- The dialog is hidden with css -->
 		<div class="overlay">
 			<div id="alarm-dialog">
-				<h2>Set alarm after</h2>
+				<h2>12시간 단위 알람 설정</h2>
 				<label class="hours">
 					시간
 					<input class="input" type="number" />
