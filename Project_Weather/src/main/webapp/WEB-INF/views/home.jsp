@@ -202,8 +202,7 @@
 
     <!--=== Content ===-->
     <div class="container content-md" style="text-align: center;">
-        <p>Weather는 사용자가 원하는 지역의 날씨를 알려주는 프로그램입니다.
-        기존의 날씨 프로그램과는 다르게 원하시는 지역의 날씨를 이메일로 발송 해줍니다. <br />
+        <p>Weather는 사용자가 주소와 일치하는 지역의 날씨를 알려주는 프로그램입니다. <br />
     	또한 Weather의 알람기능을 사용하실 시 사용자가 원하는 시간에 맞추어 알람 기능 및 날씨를 알려드립니다.</p>
     </div>
     <!--=== End Content ===-->

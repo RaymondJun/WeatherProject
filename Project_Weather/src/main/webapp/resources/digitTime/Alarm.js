@@ -76,6 +76,7 @@ $(function(){
 		// d = 요일표기 , A = AM/PM 표기
 
 		var now = moment().format("hhmmssdA");
+		var nowH = moment().format("HHmmssdA");
         
 		digits.h1.attr('class', digit_to_name[now[0]]);
 		digits.h2.attr('class', digit_to_name[now[1]]);
@@ -89,7 +90,7 @@ $(function(){
 		// and make Sunday last
         // 현재시간을 합쳐서 숫자로 계산
         curTime = parseInt(now[0]+now[1]+now[2]+now[3]+now[4]+now[5]);
-		// 오전 오후 확인
+		// 오전 오후 확인 A or P
 		ap = now[7];
 		console.log(ap);
 		var dow = now[6];
