@@ -99,7 +99,6 @@ $(function(){
         curTimeH = parseInt(nowH[0]+nowH[1]+nowH[2]+nowH[3]+nowH[4]+nowH[5]);
 		// 오전 오후 확인 A or P
 		ap = now[7];
-		console.log(ap);
 		var dow = now[6];
 		dow--;
 		
@@ -125,22 +124,12 @@ $(function(){
 			// Activate the alarm icon
 			//alarm.addClass('activeR');
 		//}
-		console.log(alarm_counter);
-		console.log(curTime);
 		if(alarm_counter == curTime){
-			console.log("안에 카운터 : "+alarm_counter);
-			console.log("안에 커타임 : " + curTime);
 			time_is_up.fadeIn();
 
 			// Play the alarm sound. This will fail
 			// in browsers which don't support HTML5 audio
 
-			try{
-				$('#alarm-ring')[0].play();
-			}
-			catch(e){}
-			
-			alarm_counter--;
 			alarm.removeClass('activeR');
 		}
 		else{
@@ -188,12 +177,20 @@ $(function(){
 
 	alarm_set.click(function(){
 
-		var valid = true, after = 0,
-			to_seconds = [3600, 60, 1];
+		var valid = true, after = 0;
         var set = [];
         var setT = "";
-		dialog.find('.input').each(function(i){
+        
+        dialog.find('.input').keyup(function(){
+            
+            var inputLth = $(this).val().length;
+            if(inputLth > 2){
+               alert("2글자 이상은 입력 하실 수 없습니다.");
+               $('.input').val("");
+            }
 
+        });
+		dialog.find('.input').each(function(i){
 			// Using the validity property in HTML5-enabled browsers:
 
 			if(this.validity && !this.validity.valid){
@@ -209,30 +206,26 @@ $(function(){
 
             // 알람 설정 값 가져와서 INT로 만들기
             set.push(this.value);
-            for(var i = 0; i<set.length;i++){
-                console.log(" set["+ i +"] : " + set[i]);
-            }
-            
             setT = parseInt(set[0] + set[1] + set[2]);
             
-            console.log(" INSIDE setT : " + setT);
 			after = setT; // to_seconds[i]
            
 		});
-        console.log(" OUT SIDE set : " + set);
-        console.log(" OUT SIDE setT : " + setT);
 		if(!valid){
 			alert('숫자만 입력하셔야 합니다!');
+			$('.input').val("");
 			return;
 		}
-		
-		if(after < curTime){
-			alert('현재 시간보다 앞선 시간을 선택해주세요!');
-			$('.input').val("");
-			return;	
-		}else if(after>=125959){
+		if(ap =="P"){
+			if(after < curTime){
+				alert('현재 시간보다 앞선 시간을 선택해주세요!');
+				$('.input').val("");
+				return;	
+			}
+		}
+		if(after>=125959){
 			alert('시간 단위는 12시간 단위로 지정해주세요!');
-			after.clear();
+			$('.input').val("");
 			return;
 		}
 
@@ -255,21 +248,25 @@ $(function(){
 
 		// Calculate how much time is left for the alarm to go off.
 
-		var hours = 0, minutes = 0, seconds = 0, tmp = 0;
+		var hours = "", minutes = "", seconds = "";
 
 		if(alarm_counter > 0){
-			
+			console.log("alarm_counter  = tmp GGGGGG :  " +alarm_counter );
 			// There is an alarm set, calculate the remaining time
-
-			tmp = alarm_counter;
-
-			hours = Math.floor(tmp/3600);
-			tmp = tmp%3600;
-
-			minutes = Math.floor(tmp/60);
-			tmp = tmp%60;
-
-			seconds = tmp;
+			var ex = (""+ alarm_counter).split("");
+			ex = ("0"+ex).split(",");
+			console.log("ex  555ex 55555ex 555555 : " + ex );
+			
+			hours = ex[0];
+			minutes = ex[1]+ex[2];
+			seconds = ex[3]+ex[4];
+			
+			console.log("hours 55555555555555 : " + hours);
+            console.log("minutes 55555555555555 : " + minutes);
+            console.log("seconds 55555555555555 : " + seconds);
+            
+			
+			
 		}
 
 		// Update the input fields

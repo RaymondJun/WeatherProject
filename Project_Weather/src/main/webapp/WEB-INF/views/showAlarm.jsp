@@ -59,7 +59,21 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/digitTime/Alarm.js" type="text/javascript"></script>
 <script type="text/javascript">
+	
 	$(function() {
+		var ap = $("#pa").val();
+		console.log(ap);
+		$("#pa").click(function() {
+			console.log("클릭 이벤트 들어옴");
+			$("#pa").each(function() {
+				if(ap =="AM"){
+					$("#pa").val("PM");
+				}
+				if(ap == "PM"){
+					$("#pa").val("AM");
+				} 
+			});
+		});
 		/* var HH = $("#timeH").val();
 		var MM = $("#timeM").val();
 		var Rtime = HH+MM;
@@ -77,14 +91,12 @@
 		var mainURL = 'http://localhost:8080/weather/xxx';
 	    var date = new Date();
 	    var h = date.getHours();
-	    console.log(typeof h);
 		$.ajax({
 	        url: mainURL,
 	        type: 'GET',
 	        success: function(data) {
 	        	var json = JSON.parse(data);
 	        	var jj = json["response"].body.items.item;
-	        	//console.log(jj);
 	        	var t = {};
 	        	var sky;
 	        	var rain;
@@ -133,8 +145,6 @@
 					
 	        	// 3시간 기온이 현 날씨 보다 4도 낮게 나온다.
 	        	temp = temp * 1;
-	        	console.log(typeof temp);
-	        	console.log(typeof rain);
 	        	 // 현재 기온을 표시한다.
 	        	$(".temp").html((temp+ 3) + '<span style="font-size: 30px;line-height: 30px;vertical-align: top;margin-left: 5px;">c</span>');
 	        	
@@ -368,6 +378,7 @@
 		<div class="overlay">
 			<div id="alarm-dialog">
 				<h2>12시간 단위 알람 설정</h2>
+				<input type="button" class="a .button" value="AM" id="pa"  style="font-size: 13pt;color:silver; padding: 2px;">
 				<label class="hours">
 					시간
 					<input class="input" type="number" />
