@@ -42,7 +42,7 @@
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" > -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/datepicker/bootstrap-datepicker.css">
 	<!-- script src="https://code.jquery.com/jquery-3.2.1.js"></script> -->
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 	<!--  google font -->	
 	<link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@500;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
@@ -52,16 +52,6 @@
     <!--  카카오 다음 우편번호 주소 검색 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
-    <script type="text/javascript">
-    	$(function() {
-    		$("#cemail").click(function() {
-				var cemail = alertify.prompt("아이디 중복체크");
-				alert(cemail);
-				$("#cemail").val(cemail);
-				alert($("#cemail").val);
-			});
-		});
-    </script>
     <style type="text/css">
     	#cemail{
     		cursor: pointer;

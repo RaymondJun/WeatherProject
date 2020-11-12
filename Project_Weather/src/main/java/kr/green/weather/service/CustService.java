@@ -7,8 +7,8 @@ import kr.green.weather.vo.CustVO;
 public interface CustService {
 	// 고객 리스트 가져오기
 	List<CustVO> selectCustList();
-
-	// 고객번호로 찾기 List<CustVO> selectByNo(int custno);
+	// 아이디 중복 체크
+	String idCheck(String cemail);
 	// 이메일 아이디로 찾기
 	CustVO selectById(String cemail);
 	// 이메일로 찾기

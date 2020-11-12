@@ -6,6 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectCustList" resultType="CustVO">
 		select * from customer 
 	</select>
+	<!-- 아이디 중복 체크  -->
+	<select id="idCheck" resultType="string" parameterType="string">
+		select cemail from customer where cemail=#{cemail}
+	</select>
 	<!--  한명 조회 : 삭제때 필요 -->
 	<select id="selectByNo" parameterType="int" resultType="CustVO">
 		select * from customer where custno=#{custno}

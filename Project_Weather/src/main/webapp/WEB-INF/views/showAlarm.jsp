@@ -61,19 +61,18 @@
 <script type="text/javascript">
 	
 	$(function() {
-		var ap = $("#pa").val();
-		console.log(ap);
-		$("#pa").click(function() {
+		
+		/* $("#pa").click(function() {
 			console.log("클릭 이벤트 들어옴");
-			$("#pa").each(function() {
-				if(ap =="AM"){
-					$("#pa").val("PM");
-				}
-				if(ap == "PM"){
-					$("#pa").val("AM");
-				} 
-			});
-		});
+			if($(this).val() =="AM"){
+				$(this).val("PM");
+				console.log("위에 : "+$(this).val);
+			}else{
+				$(this).val("AM");
+				console.log("아래 : "+this);
+			}
+			return;
+		});  */
 		/* var HH = $("#timeH").val();
 		var MM = $("#timeM").val();
 		var Rtime = HH+MM;
@@ -378,7 +377,7 @@
 		<div class="overlay">
 			<div id="alarm-dialog">
 				<h2>12시간 단위 알람 설정</h2>
-				<input type="button" class="a .button" value="AM" id="pa"  style="font-size: 13pt;color:silver; padding: 2px;">
+				<!-- <input type="button" class="a .button" value="AM" id="pa"  style="font-size: 13pt;color:silver; padding: 2px;"> -->
 				<label class="hours">
 					시간
 					<input class="input" type="number" />

@@ -8,7 +8,8 @@ $(function(){
 		dialog = $('#alarm-dialog').parent(),
 		alarm_set = $('#alarm-set'),
 		alarm_clear = $('#alarm-clear'),
-		time_is_up = $('#time-is-up').parent();
+		time_is_up = $('#time-is-up').parent(),
+		pa	= $('#pa').val();
 	
 	// This will hold the number of seconds left
 	// until the alarm should go off
@@ -116,14 +117,6 @@ $(function(){
 
 		// Is there an alarm set?
         
-		//if(alarm_counter > curTime){
-			
-			// Decrement the counter with one second
-			//alarm_counter--;////////////////////////
-
-			// Activate the alarm icon
-			//alarm.addClass('activeR');
-		//}
 		if(alarm_counter == curTime){
 			time_is_up.fadeIn();
 
@@ -131,8 +124,8 @@ $(function(){
 			// in browsers which don't support HTML5 audio
 
 			alarm.removeClass('activeR');
-		}
-		else{
+		
+		}else{
 			// The alarm has been cleared
 			alarm.removeClass('activeR');
 		}

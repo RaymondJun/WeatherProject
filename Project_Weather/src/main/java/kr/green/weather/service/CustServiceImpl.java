@@ -176,6 +176,11 @@ public class CustServiceImpl implements CustService{
 			}
 			return userName;
 		}
+		// 아이디 중복 체크
+		@Override
+		public String idCheck(String cemail) {
+			return custDAO.idCheck(cemail);
+		}
 	
 	
 //	// 로그인을 위한 아이디와 비번

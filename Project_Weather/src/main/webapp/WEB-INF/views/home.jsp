@@ -56,21 +56,6 @@
                         <ul class="list-inline top-v2-contacts">
                             <li>Email: <a href="mailto:info@htmlstream.com">jbs0206j@google.com</a></li>
                             <li>연락처: 010-5674-9399</li>
-                            <li>
-                                <div class="language-bar">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="heading">Languages</span>
-                                    </a>
-                                    <ul class="languages-dropdown" role="menu">
-                                        <li class="active">
-                                            <a href="#">English</a> 
-                                        </li>
-                                        <li><a href="#">Spanish</a></li>
-                                        <li><a href="#">Russian</a></li>
-                                        <li><a href="#">German</a></li>
-                                    </ul>
-                                </div>
-                            </li>    
                         </ul>
                     </div>
                     <!-- 로그인 , 회원가입 버튼  -->

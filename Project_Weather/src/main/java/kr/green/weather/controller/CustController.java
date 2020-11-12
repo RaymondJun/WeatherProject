@@ -107,7 +107,7 @@ public class CustController {
 	// ajax 로 이걸 불러온다.
 		@RequestMapping(value = "/xxx")
 		@ResponseBody
-		public String callAjax(HttpServletRequest request, HttpServletResponse response) {
+		public String callAjax() {
 			log.debug("==============================================================================================");
 			log.debug("CustController.callAjax 호출" );
 			log.debug("==============================================================================================");
@@ -157,8 +157,22 @@ public class CustController {
 			
 			return result;
 		}
+// ============================================= 아이디 중복 체크 ==================================================================
+		@RequestMapping(value = "/idCheck")
+		@ResponseBody
+		public Boolean idCheck(String cemail) {
+			log.debug("==============================================================================================");
+			log.debug("CustController.idCheck 호출"  + cemail);
+			log.debug("==============================================================================================");
+			boolean result = false;
+			String idCk = custService.idCheck(cemail);
+			if(idCk != null) {
+				result = true;
+			}
+			return result;
+		}
 	 
-	 
+// ============================================= 아이디 중복 체크 ==================================================================
 // ============================================= 비밀번호 찾기 ==================================================================
 	 @RequestMapping(value = "/findpass")
 	 public String findpass() {
@@ -595,10 +609,11 @@ public class CustController {
 		log.debug("==============================================================================================");
 		log.debug("CustController.insert 호출" + custVO);
 		log.debug("==============================================================================================");
-		
 		int custno = custService.maxCustno();
-		
 		model.addAttribute("custno",custno);
+		
+		
+		
 		return "insert";
 	}
 	@RequestMapping(value = {"/insertOk"}, method = RequestMethod.GET)

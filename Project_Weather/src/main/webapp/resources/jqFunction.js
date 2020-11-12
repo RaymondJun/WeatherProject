@@ -1,30 +1,38 @@
-/*$(function() {  //jQuery(document).ready
-	        App.init();
-	        App.initCounter();
-	      	App.initParallaxBg();
-	        OwlCarousel.initOwlCarousel();
-	        ProgressBar.initProgressBarVertical();
-	    });*/
+$(function() {
+	$("#cemail").click(function() {
+		var emailCk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		var cemail = prompt("아이디 중복체크");
+		$("#cemail").val(cemail);
+		cemail = $(this).val();
+		if(cemail==null || cemail.trim().length==0){
+			$.notify("이러한 형식의 아이디는 사용 하실 수 없습니다.", "info");
+			$("#cemail").val("");
+		}else if(cemail.match(emailCk) == null) {
+			$.notify("아이디는 반드시 이메일 형식으로 입력하셔야 합니다.", "info");
+			$("#cemail").val("");
+		}else{
+			cemail = $(this).val();
+    		idCkURL = 'http://localhost:8080/weather/idCheck';
+    		$.ajax({
+    			data:{cemail:cemail},
+    			url:idCkURL,
+    			dataType:'text',
+    			type:'GET',
+    			success: function(data){
+    				if(data=="true"){
+    					$.notify("이미 사용중인 아이디입니다.", "info");
+    					$("#cemail").val("");
+    				}else{
+    					$.notify("사용 가능한 아이디입니다.", "info");
+    				}
+    				
+    			}
+    		});
+		}
+	});
+});
 	    
 $(function(){
-	// 홈 스크립 시작 ================================================= 
-	
-		//jQuery(document).ready(function() {
-			//      	App.init();
-			  //  });]
-//        $("#formBtn").removeAttr("style");
-//        $("#logoutBtn").css('cursor', 'pointer').removeAttr("href");
-//        $("#logoutBtn").click(function(){
-//			// location.href='logout.jsp';
-//			// Ajax로 로그아웃 구현하기
-//			$.ajax("logout",{
-//				success: function(data){
-//					window.location.reload();
-//				}
-//			});
-//		});
-
-	// 홈 스크립 끝 =================================================
 
 
 	
@@ -130,20 +138,6 @@ $(function(){
 	function formCheck() {
 				
 				
-				var emailCk = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	    		var value = $("#cemail").val();
-	    		if(value== null || value.trim().length==0){
-	    			$.notify("Alert!", {type:"info"});
-	    			$.notify("아이디는 반드시 입력하셔야 합니다.", "info");
-	    			$("#cemail").val("");
-	    			$("#cemail").focus();
-	    			return false;
-	    		}
-	    		if(value.match(emailCk) == null) {
-	    			$.notify("아이디는 반드시 이메일 형식으로 입력하셔야 합니다.", "info");
-					$("#cemail").val("");
-					return false;		
-				}
 	    		var value = $("#cpassword").val();
 	    		if(value== null || value.trim().length==0){
 	    			$.notify("비밀번호는 반드시 입력하셔야 합니다.", "info");
