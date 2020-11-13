@@ -236,10 +236,6 @@ public class CustController {
 				log.debug("=====================================================================================");
 				log.debug("CustController.showWeather 호출,  불러온 y =" + y);
 				log.debug("=====================================================================================");
-//				String data = GetApi.getGjson(x.getX().toString(), y.getY().toString());
-//				log.debug("=====================================================================================");
-//				log.debug("CustController.showWeather 호출,  불러온 data =" + data);
-//				log.debug("=====================================================================================");
 				
 				model.addAttribute("times", time);
 				model.addAttribute("si", list[0]);
@@ -248,8 +244,6 @@ public class CustController {
 				model.addAttribute("custVO", custVO);
 				model.addAttribute("x", x.getX());
 				model.addAttribute("y", y.getY());
-//				model.addAttribute("list1", list[1]);
-//				model.addAttribute("list2", list[2]);
 				
 		 }
 		 return "showWeather";
@@ -306,10 +300,6 @@ public class CustController {
 			 log.debug("=====================================================================================");
 			 log.debug("CustController.showAlram 호출,  불러온 y =" + y);
 			 log.debug("=====================================================================================");
-//				String data = GetApi.getGjson(x.getX().toString(), y.getY().toString());
-//				log.debug("=====================================================================================");
-//				log.debug("CustController.showWeather 호출,  불러온 data =" + data);
-//				log.debug("=====================================================================================");
 			 
 			 model.addAttribute("times", time);
 			 model.addAttribute("si", list[0]);
@@ -318,8 +308,6 @@ public class CustController {
 			 model.addAttribute("custVO", custVO);
 			 model.addAttribute("x", x.getX());
 			 model.addAttribute("y", y.getY());
-//				model.addAttribute("list1", list[1]);
-//				model.addAttribute("list2", list[2]);
 			 
 		 }
 		 return "showAlarm";

@@ -47,10 +47,10 @@
     <!--  google font -->
 	<link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontYeon.css">
+    <script type="text/javascript">
+    </script>
 </head>	
-
 <body class="header-fixed">    
-
 <div class="wrapper">
  <!--=== Header v2 ===-->
     <div class="header-v2 header-sticky">
@@ -192,54 +192,20 @@
     <!-- End Interactive Slider v2 -->
 
     <!--=== Content ===-->
-    <div class="container content-md" ><!-- class="container content-md" -->
-		 <!-- <table class="easyui-datagrid" title="문의 사항" style="width:1100px;height:auto;color: orange;" id="dg"
-	        data-options="singleSelect:true,collapsible:false,url:'json',method:'get', rownumbers:true,sortOrder:'desc',
-	        autoRowHeight:false,
-	        pagination:true,
-	        pageSize:10" border="1">
-	        <thead>
-	            <tr>
-	                <th data-options="field:'num',width:100, align:'center'">글번호</th>
-	                <th data-options="field:'content',width:600">Memo</th>
-	                <th data-options="field:'name',width:150, align:'center'">이 름</th>
-	                <th data-options="field:'now',width:150, align:'center'">등록일</th>
-	            </tr>
-	        </thead>
-	    </table>
-	    <table style="width:1005px;">
-        <tr>
-            <td>
-                <form action="quest" method="get" id="ff">
-                    <input class="easyui-textbox" name="name" style="width:15%" data-options="label:'이름:',required:true">
-                    <input class="easyui-textbox" name="password" style="width:15%" data-options="label:'비번:',required:true"><br /><br />
-                    <input class="easyui-textbox" name="content" style="width:70%;height: 80px" data-options="label:'내용:',required:true">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">저장</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">지우기</a>
-                </form>
-                <script>
-                    function submitForm(){
-                        $('#ff').submit();
-                    }
-                    function clearForm(){
-                        $('#ff').form('clear');
-                    }
-                </script>
-            </td>
-        </tr>
-    </table> --> <!-- url="json"    toolbar="#toolbar" pagination="true"    rownumbers="true" fitColumns="true" singleSelect="true" -->
+    <div class="container content-md" >
         <table id="dg" title="문의 사항" class="easyui-datagrid" style="width:1100px;height:auto;"data-options="singleSelect:true,collapsible:false,url:'json',method:'get', rownumbers:true,sortOrder:'desc',
-	        autoRowHeight:false,fitColumns:true,
+	        columns: [[{field:'content',width:600},{field:'name',width:200, align:'center'},{field:'now',width:200, align:'center'}]],
+	        autoRowHeight:false,fitColumns:true,fit:true,
 	        pagination:true,
 	        pageSize:10" border="1" >
-	        <thead>
+	       <!--  <thead>
 	            <tr>
-	                <!-- <th data-options="field:'num',width:100, align:'center'">글번호</th> -->
+	                 <th data-options="field:'num',width:100, align:'center'">글번호</th> 
 	                <th data-options="field:'content',width:600">Memo</th>
 	                <th data-options="field:'name',width:200, align:'center'">이 름</th>
 	                <th data-options="field:'now',width:200, align:'center'">등록일</th>
 	            </tr>
-	        </thead>
+	        </thead> -->
 	    </table>
 	    <div id="toolbar">
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">글쓰기</a>
@@ -318,6 +284,7 @@
                 });
             }
         }
+        
     </script>
     </div>
     <!--=== End Content ===-->

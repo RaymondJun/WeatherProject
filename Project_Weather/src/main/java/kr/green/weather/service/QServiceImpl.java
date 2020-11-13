@@ -34,6 +34,14 @@ public class QServiceImpl implements QService{
 		return num;
 	}
 	@Override
+	public int countQ() {
+		log.debug("+=========================================================================");
+		log.debug("QServiceImpl.countQ 호출");
+		log.debug("+=========================================================================");
+		int total = qDAO.countQ();
+		return total;
+	}
+	@Override
 	public QVO selectByname(String name) {
 		log.debug("+=========================================================================");
 		log.debug("QServiceImpl.selectByname 호출 name 은 : "+ name);
